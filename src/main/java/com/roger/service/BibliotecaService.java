@@ -2,7 +2,10 @@ package com.roger.service;
 import com.roger.model.Libro;
 import com.roger.model.Prestamo;
 import com.roger.model.Usuario;
-import com.sun.source.doctree.SystemPropertyTree;
+import com.roger.exception.LibroNoEncontradoException;
+import com.roger.exception.UsuarioNoEncontradoException;
+import com.roger.exception.LibroNoDisponibleException;
+import com.roger.exception.PrestamoNoEncontradoException;
 
 import java.util.ArrayList;
 
@@ -59,7 +62,6 @@ public class BibliotecaService {
             }
 
         }
-        System.out.println("No se han encontrado libros con ese ISBN");
         return null;
     }
 
@@ -69,7 +71,6 @@ public class BibliotecaService {
                 return usuarioEnLista;
             }
         }
-        System.out.println("No se han encontrado usuarios con ese ID");
         return null;
     }
 
@@ -78,18 +79,15 @@ public class BibliotecaService {
         Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (libro == null) {
-            System.out.println("El ISBN proporcionado no corresponde a ningún libro guardado");
-            return;
+            throw new LibroNoEncontradoException(isbn);
         }
 
         if (usuario == null) {
-            System.out.println("El ID de usuario proporcionado no corresponde a ningún usuario guardado");
-            return;
+            throw new UsuarioNoEncontradoException(idUsuario);
         }
 
         if (!libro.isDisponible()) {
-            System.out.println("El libro no está disponible");
-            return;
+            throw new LibroNoDisponibleException(libro.getTitulo());
         }
 
         libro.prestar();
@@ -112,13 +110,11 @@ public class BibliotecaService {
         Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (libro == null) {
-            System.out.println("El ISBN proporcionado no corresponde a ningún libro guardado");
-            return;
+            throw new LibroNoEncontradoException(isbn);
         }
 
         if (usuario == null) {
-            System.out.println("El ID de usuario proporcionado no corresponde a ningún usuario guardado");
-            return;
+            throw new UsuarioNoEncontradoException(idUsuario);
         }
 
         for (Prestamo prestamo : this.prestamos) {
@@ -134,8 +130,7 @@ public class BibliotecaService {
                 return;
             }
         }
-
-        System.out.println("No existe un préstamo activo para ese libro y usuario");
+        throw new PrestamoNoEncontradoException(isbn,idUsuario);
     }
 
     public void mostrarPrestamosActivos() {
