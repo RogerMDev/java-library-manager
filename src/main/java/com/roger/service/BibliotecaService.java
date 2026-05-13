@@ -2,6 +2,7 @@ package com.roger.service;
 import com.roger.model.Libro;
 import com.roger.model.Prestamo;
 import com.roger.model.Usuario;
+import com.sun.source.doctree.SystemPropertyTree;
 
 import java.util.ArrayList;
 
@@ -33,6 +34,27 @@ public class BibliotecaService {
         for (Usuario usuario : this.usuarios) {
             System.out.println(usuario);
         }
+    }
+
+    public Libro buscarLibroPorIsbn(String isbn){
+        for (Libro libroEnLista : this.libros){
+            if (libroEnLista.getIsbn().equalsIgnoreCase(isbn)){
+                return libroEnLista;
+            }
+
+        }
+        System.out.println("No se han encontrado libros con ese ISBN");
+        return null;
+    }
+
+    public Usuario buscarUsuarioPorId(int id){
+        for (Usuario usuarioEnLista : this.usuarios){
+            if (id == usuarioEnLista.getId()){
+                return usuarioEnLista;
+            }
+        }
+        System.out.println("No se han encontrado usuarios con ese ID");
+        return null;
     }
 }
 

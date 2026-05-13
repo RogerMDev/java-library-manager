@@ -9,6 +9,7 @@ import com.roger.service.BibliotecaService;
 public class Main {
     public static void main(String[] args) {
         BibliotecaService bibliotecaService = new BibliotecaService();
+
         Libro libro1 = new Libro("1", "Cien años de soledad", "Gabriel García Márquez", 1967);
         Libro libro2 = new Libro("2", "El alquimista", "Paulo Coelho", 1988);
         Usuario usuario1 = new Usuario(1,"user1","user1@gmail.com");
@@ -21,5 +22,27 @@ public class Main {
         bibliotecaService.mostrarLibros();
         System.out.println("=== USUARIOS ===");
         bibliotecaService.mostrarUsuarios();
+
+        System.out.println("=== BUSCAR LIBRO ===");
+
+        Libro libroEncontrado = bibliotecaService.buscarLibroPorIsbn("1");
+
+        if (libroEncontrado != null) {
+            System.out.println("Libro encontrado:");
+            System.out.println(libroEncontrado);
+        } else {
+            System.out.println("Libro no encontrado");
+        }
+
+        System.out.println("=== BUSCAR USUARIO ===");
+
+        Usuario usuarioEncontrado = bibliotecaService.buscarUsuarioPorId(1);
+
+        if (usuarioEncontrado != null) {
+            System.out.println("Usuario encontrado:");
+            System.out.println(usuarioEncontrado);
+        } else {
+            System.out.println("Usuario no encontrado");
+        }
     }
 }
