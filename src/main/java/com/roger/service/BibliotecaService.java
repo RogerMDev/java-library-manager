@@ -8,12 +8,13 @@ import com.roger.exception.LibroNoDisponibleException;
 import com.roger.exception.PrestamoNoEncontradoException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BibliotecaService {
 
-    private ArrayList<Libro> libros;
-    private ArrayList<Usuario> usuarios;
-    private ArrayList<Prestamo> prestamos;
+    private List<Libro> libros;
+    private List<Usuario> usuarios;
+    private List<Prestamo> prestamos;
 
     public BibliotecaService() {
         this.libros = new ArrayList<>();
@@ -22,22 +23,20 @@ public class BibliotecaService {
     }
 
     public void agregarLibro(Libro libro) {
-        for (Libro libroAnadido : this.libros) {
-            if (libroAnadido.getIsbn().equalsIgnoreCase(libro.getIsbn())) {
+
+        if (this.libros.contains(libro)) {
                 System.out.println("El libro ya está añadido");
                 return;
-            }
         }
+
         this.libros.add(libro);
         System.out.println("Libro añadido correctamente");
     }
 
     public void agregarUsuario(Usuario usuario) {
-        for (Usuario usuarioAnadido : this.usuarios) {
-            if (usuarioAnadido.getId() == usuario.getId()) {
-                System.out.println("El usuario ya está añadido");
-                return;
-            }
+        if (this.usuarios.contains(usuario)) {
+            System.out.println("El usuario ya está añadido");
+            return;
         }
         this.usuarios.add(usuario);
         System.out.println("Usuario añadido correctamente");

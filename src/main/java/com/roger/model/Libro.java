@@ -54,4 +54,23 @@ public class Libro {
                 ", disponible=" + disponible +
                 '}';
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Libro libro = (Libro) o;
+
+        return isbn.equalsIgnoreCase(libro.isbn);
+    }
+
+    @Override
+    public int hashCode() {
+        return isbn.toLowerCase().hashCode();
+    }
 }
