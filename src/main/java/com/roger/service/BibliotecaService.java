@@ -18,11 +18,25 @@ public class BibliotecaService {
         this.prestamos = new ArrayList<>();
     }
 
-    public void agregarLibro(Libro libro){
-        libros.add(libro);
+    public void agregarLibro(Libro libro) {
+        for (Libro libroAnadido : this.libros) {
+            if (libroAnadido.getIsbn().equalsIgnoreCase(libro.getIsbn())) {
+                System.out.println("El libro ya está añadido");
+                return;
+            }
+        }
+        this.libros.add(libro);
+        System.out.println("Libro añadido correctamente");
     }
     public void agregarUsuario(Usuario usuario){
-        usuarios.add(usuario);
+        for (Usuario usuarioAnadido : this.usuarios){
+            if (usuarioAnadido.getId() == usuario.getId()){
+                System.out.println("El usuario ya está añadido");
+                return;
+            }
+        }
+        this.usuarios.add(usuario);
+        System.out.println("Usuario añadido correctamente");
     }
     public void mostrarLibros(){
         for (Libro libro : this.libros) {
@@ -55,6 +69,40 @@ public class BibliotecaService {
         }
         System.out.println("No se han encontrado usuarios con ese ID");
         return null;
+    }
+
+    public void prestarLibro(String isbn, int idUsuario) {
+        Libro libro = buscarLibroPorIsbn(isbn);
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
+
+        if (libro == null) {
+            System.out.println("El ISBN proporcionado no corresponde a ningún libro guardado");
+            return;
+        }
+
+        if (usuario == null) {
+            System.out.println("El ID de usuario proporcionado no corresponde a ningún usuario guardado");
+            return;
+        }
+
+        if (!libro.isDisponible()) {
+            System.out.println("El libro no está disponible");
+            return;
+        }
+
+        libro.prestar();
+
+        int idPrestamo = this.prestamos.size() + 1;
+        Prestamo prestamo = new Prestamo(idPrestamo, libro, usuario);
+        this.prestamos.add(prestamo);
+
+        System.out.println("Libro prestado correctamente");
+    }
+
+    public void mostrarPrestamos(){
+        for (Prestamo prestamoAnadido : this.prestamos){
+            System.out.println(prestamoAnadido);
+        }
     }
 }
 

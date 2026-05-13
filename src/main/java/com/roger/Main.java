@@ -44,5 +44,16 @@ public class Main {
         } else {
             System.out.println("Usuario no encontrado");
         }
+
+        System.out.println("=== PRESTAR LIBRO ===");
+        bibliotecaService.prestarLibro("1", 1);
+
+        System.out.println("=== PRÉSTAMOS ===");
+        bibliotecaService.mostrarPrestamos();
+
+        System.out.println("=== INTENTAR PRESTAR EL MISMO LIBRO ===");
+        bibliotecaService.prestarLibro("1", 2);
+
+
     }
 }
