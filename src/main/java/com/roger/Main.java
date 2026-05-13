@@ -51,9 +51,16 @@ public class Main {
         System.out.println("=== PRÉSTAMOS ===");
         bibliotecaService.mostrarPrestamos();
 
-        System.out.println("=== INTENTAR PRESTAR EL MISMO LIBRO ===");
+        System.out.println("=== DEVOLVER LIBRO ===");
+        bibliotecaService.devolverLibro("1", 1);
+
+        System.out.println("=== PRÉSTAMOS DESPUÉS DE DEVOLVER ===");
+        bibliotecaService.mostrarPrestamos();
+
+        System.out.println("=== VOLVER A PRESTAR EL MISMO LIBRO ===");
         bibliotecaService.prestarLibro("1", 2);
 
-
+        System.out.println("=== PRÉSTAMOS FINALES ===");
+        bibliotecaService.mostrarPrestamos();
     }
 }
