@@ -1,17 +1,25 @@
 package com.roger;
 
+import com.roger.model.Libro;
+import com.roger.model.Usuario;
+import com.roger.service.BibliotecaService;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        BibliotecaService bibliotecaService = new BibliotecaService();
+        Libro libro1 = new Libro("1", "Cien años de soledad", "Gabriel García Márquez", 1967);
+        Libro libro2 = new Libro("2", "El alquimista", "Paulo Coelho", 1988);
+        Usuario usuario1 = new Usuario(1,"user1","user1@gmail.com");
+        Usuario usuario2 = new Usuario(2,"user2","user2@gmail.com");
+        bibliotecaService.agregarLibro(libro1);
+        bibliotecaService.agregarLibro(libro2);
+        bibliotecaService.agregarUsuario(usuario1);
+        bibliotecaService.agregarUsuario(usuario2);
+        System.out.println("=== LIBROS ===");
+        bibliotecaService.mostrarLibros();
+        System.out.println("=== USUARIOS ===");
+        bibliotecaService.mostrarUsuarios();
     }
 }
